@@ -1,0 +1,19 @@
+<?php
+
+namespace App;
+
+class Connection {
+		public static function getDb() {
+		try {
+
+			$conn = new \PDO("mysql:host=localhost;dbname=calcula_conta_app;charset=utf8", "root","");
+
+			return $conn;
+				
+		} catch (\PDOException $e) {
+				
+		}	
+	}
+}
+
+?>

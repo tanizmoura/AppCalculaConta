@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+	font-family: 'Raleway', sans-serif;
+	min-height: 100%;
+  	display: flex;
+  	flex-direction: column;
+  	overflow-x: hidden;
+}
+
+footer {
+	background-color: #2B2B2B;
+	color: #FFF;
+    width:100%;
+    padding: 5px 0;
+    text-align: center;
+}
+
+ /*LINKS*/
+a {
+	color: #000;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #00398D;
+
+}
+
+header a:hover {
+	font-weight: 700;
+	color: #FEA832;
+	border-bottom: 1px solid #000;
+}
+
+footer a {
+	color: #FFF;
+}
+
+footer a:hover {
+	color: #FEA832;
+}
+
+/*PAGE LINK PAGINAÇÃO */
+
+.page-link {
+    color: #FFF;
+    background-color: #343A40;
+}
+
+.page-link:hover {
+	color: #00398D;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #000;
+    background-color: #FEA832;
+    border-color: #FEA832;
+}
+
+/*BOX CATEGORIA*/
+.categoria {
+	background-color: #00398D;
+	display: inline-block;
+	padding: 10px;
+	color: #FFF;
+	font-size: 0.8em;
+	text-transform: uppercase;
+	border-radius: 100px;
+}
+
+/* TOTAL DÍVIDAS BOX */
+.total_dividas_box {
+	border-bottom: 5px solid #FEA832;
+}
+
+/* TITULO */
+.titulo {
+	font-size: 25px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 25px;
+	letter-spacing: 0.3em;
+	text-transform: uppercase;
+	color: #FFF;
+
+}
+
+.caixa-titulo {
+	background-color: red;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	padding: 10px 0;
+	text-align: center;
+}
+
+/* FORM CADASTRO */
+
+.form-valor, .form-cadastro {
+	border:1px solid #000;
+	border-radius: 10px;
+}
+
+.form-valor {
+	margin-left: 20px;
+	width: 40%;
+	text-align: center;
+	font-size: 2.5em;
+	padding-right: 10px;
+}
+
+.form-cadastro {
+	font-size: 1.5em;
+	height: 50px;
+}
+
+.form-control:focus {
+        border-color: #FEA832;
+        box-shadow: 0 0 0 0.2rem rgba(254, 168, 50, 0.25);
+} 
+
+.input-group-text {
+	background-color: #343A40;
+	border:1px solid #000;
+	border-radius: 10px;
+	color: #FFF;
+	font-size: 1.5em;
+	font-weight: 400;
+	width: 150px;
+}
+
+.form-valor-simb {
+	font-weight: 700;
+	line-height: 55px;
+	font-size: 3em;
+}
+
+.conteudo-caixa {
+	border: 1px solid #dddddd;
+	border-radius: 20px;
+	padding: 40px;
+	min-width: 50%;
+}
+
+.conteudo-caixa2 {
+	min-width: 50%;
+}
+
+.width-img {
+	width: 50%;
+}
+
+/* BOTÕES */
+
+.btn-blue,.btn-yellow  {
+	font-weight: 800;
+	text-transform: uppercase;	
+	font-size: 1.5em;
+	
+}
+
+.btn-blue{
+	background-color: #00398D;
+	color: #FFF;	
+}
+
+.btn-yellow {
+	color: #000;
+	background-color: #FFFF;
+}
+
+.btn-yellow:hover {
+	border-bottom:2px solid #FEA832;
+	color: #00398D;
+}
+
+.btn-blue:hover {
+	color: #00398D;
+	background-color: #FFF;
+}
+

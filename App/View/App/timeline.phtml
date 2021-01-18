@@ -1,0 +1,226 @@
+<?php if(isset($_GET['sucesso']) ? $_GET['sucesso'] : false) {?>
+	<div class="alert alert-success text-center alert-dismissible fade show" role="alert">
+	 Dívida alterada com sucesso!
+	 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    	<span aria-hidden="true">&times;</span>
+  	</button>
+	</div>
+<?php } ?>
+
+<?php 
+
+$ano = $this->view->anoAtual;
+$mesNum = $this->view->mesAtual;
+
+switch ($mesNum) {
+	case '1':
+		$mes = 'Janeiro';
+	break;
+
+	case '2':
+		$mes = 'Fevereiro';
+	break;
+		
+	case '3':
+		$mes = 'Março';
+	break;
+
+	case '4':
+		$mes = 'Abril';
+	break;
+
+	case '5':
+		$mes = 'Maio';
+	break;
+
+	case '6':
+		$mes = 'Junho';
+	break;
+
+	case '7':
+		$mes = 'Julho';
+	break;
+
+	case '8':
+		$mes = 'Agosto';
+	break;
+
+	case '9':
+		$mes = 'Setembro';
+	break;	
+
+	case '10':
+		$mes = 'Outubro';
+	break;
+
+	case '11':
+		$mes = 'Novembro';
+	break;
+
+	case '12':
+		$mes = 'Dezembro';
+	break;
+}
+
+$total_paginas = $this->view->total_paginas;
+
+$paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
+$por = '';
+
+if (isset($_GET['por']) && $_GET['por'] == 'ano') {
+	$por = 'ano';
+} else if(isset($_GET['por']) && $_GET['por'] == 'categoria') {
+	$por = 'categoria';
+}
+
+$url_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
+
+$rota = $url_parts[0];
+
+?>
+
+<section style="flex: 1;" class="mt-3 mb-3">
+
+	<div class="container">
+		<div class="row d-flex justify-content-center">
+			<!-- Mês Atual -->
+			<div class="col-md-12 caixa-titulo bg-dark">
+				
+				<div class="row">
+					<div class="col-4">
+						<?php if (!isset($_GET['por'])) { ?>
+						
+							<a href="/timeline?mes=<?=$mesNum == 1 ? '12' : 
+						$mesNum-1?>&ano=<?= $mesNum == 1 ? $ano - 1 : $ano ?>">
+							<img src="/img/anterior.svg">
+							</a>
+						<?php }?>
+					</div>
+					
+					<?php if (!isset($_GET['por'])) { ?>
+						<div class="col-4">
+					<?php } ?>
+
+					<?php if (isset($_GET['por'])) { ?>
+						<div class="col-12">
+					<?php } ?>
+						
+						<h3 class="titulo text-center" ><?=$rota == '/' || $rota == '/timeline' ? $mes.' ' : ''?>
+						<?= $por == 'ano' ? 'Ano ' : '' ?>
+						<?= $por == 'categoria' ? "{$this->view->categoriaPesquisa['descricao']}" : ''?>
+						</h3>
+						<h3 class="titulo"><?= $ano ?></h3>
+						<small class="text-light text-uppercase"><strong><?= $por == 'categoria' ? "$mes" : ''?></strong></small>
+						
+						
+
+
+					</div>
+
+					
+					<div class="col-4">
+						<?php if (!isset($_GET['por'])) { ?>
+						<a href="/timeline?mes=<?= $mesNum < 12 ? 
+						$mesNum + 1 : 1?>&ano=<?= $mesNum == 12 ? $ano + 1 : $ano ?>">
+							<img src="/img/proximo.svg">
+						</a>
+						<?php }?>
+					</div>
+				
+				</div>		
+				
+			</div>
+
+			<div class="col-md-12 mt-2 total_dividas_box text-center">
+				<h3>Total do mês: <strong>R$<?= $this->view->soma_dividas['total'] ?></strong></h3>
+			</div>
+
+			<!-- Listagem de Dívidas -->
+			<?php if (empty($this->view->dividas)) { ?>
+			<div class="col-md-12 mt-3 text-center">
+				<h1>Nenhuma dívida cadastrada!</h1>
+				<a href="/nova_divida" class="btn btn-blue">Faça seu primeiro registro</a>
+			</div>	
+			<?php } ?>
+
+
+				
+				<div class="col-md-12 mt-3">
+				
+					<div class="row">
+						<?php foreach ($this->view->dividas as $key => $divida) { ?>	
+						<div class="col-lg-2 col-6">
+							<h3><strong><?=$divida['descricao']?></strong></h3>
+
+							<?php if (isset($_GET['por']) && $_GET['por'] == 'ano' 
+							|| !isset($_GET['por'])) { ?>
+								<h3 class="categoria"><?=$divida['categoria']?></h3>
+							<?php } ?>		
+						</div>
+
+						<div class="col-lg-2 col-6">
+							<h2>R$<?=$divida['valor']?></h2>
+
+							<?php if (!isset($_GET['por']) || $_GET['por'] == 'categoria') { ?>
+							<h4><strong>Vencimento:</strong><?= date_parse($divida['data'])['day'] ?></h4>
+							<?php } ?>
+
+							<?php if (isset($_GET['por']) && $_GET['por'] == 'ano') { ?>
+								<h4><strong>Vencimento:</strong><?= date_parse($divida['data'])['day'].'/'.date_parse($divida['data'])['month'] ?></h4>
+							<?php } ?>
+
+						</div>
+
+						<div class="col-lg-2 d-flex justify-content-end">
+							<a href="/alterar_divida?id=<?=$divida['id']?>&pagina=<?=$paginaAtual?>
+							<?=isset($_GET['por']) ? "&por=$por" : "&ano=$ano&mes=$mesNum" ?>
+							<?= $por == 'ano' ? "&ano=$ano" : ''?>
+							<?=isset($_GET['mesAno']) ? "&mesAno={$_GET['mesAno']}&categoria={$_GET['categoria']}" : ''  ?>" class="mr-3">
+								<img src="/img/edit.svg">
+							</a>
+
+							<a href="/deletar_divida?id=<?=$divida['id']?>&pagina=<?=$paginaAtual?>
+							<?=isset($_GET['por']) ? "&por=$por" : "&ano=$ano&mes=$mesNum" ?>
+							<?= $por == 'ano' ? "&ano=$ano" : ''?>
+							<?=isset($_GET['mesAno']) ? "&mesAno={$_GET['mesAno']}&categoria={$_GET['categoria']}" : ''  ?>">
+								<img src="/img/delete.svg">
+							</a>
+						</div>
+						<?php } ?>	
+					</div>
+
+				</div>
+			
+
+			<?php if (!empty($this->view->dividas)) { ?>
+				<div class="mt-5">
+					<nav aria-label="Page navigation example">
+					  <ul class="pagination justify-content-center bg-dark">
+					    <li class="page-item">
+					      <a class="page-link" href="<?=$por == 'ano' ? "pesquisar?ano=$ano&por=ano" : '' ?><?=$mesNum == '' ? '' : "?mes=$mesNum"?>&pagina=1" tabindex="-1">Primeira</a>
+					    </li>
+
+					    <?php for ($i=1; $i <= $total_paginas; $i++) { ?>
+					    	<li class="page-item <?=$this->view->pagina_ativa == $i ? 'active' : '' ?>">
+					    		<a class="page-link" href="<?=$por == 'ano' ? "pesquisar?ano=$ano&por=ano" : '' ?><?=$mesNum == '' ? '' : "?mes=$mesNum"?>&pagina=<?=$i?>"><?= $i ?></a>
+					    	</li>
+						<?php }?>
+					    
+					    <li class="page-item">
+					      <a class="page-link" href="<?=$por == 'ano' ? "pesquisar?ano=$ano&por=ano" : '' ?><?=$mesNum == '' ? '' : "?mes=$mesNum"?>&pagina=<?=$total_paginas?>">Última</a>
+					    </li>
+					  </ul>
+					</nav>
+				</div>
+			<?php } ?>
+
+					
+				
+			</div>
+
+		</div>
+
+	</div>
+
+</section>

@@ -1,0 +1,54 @@
+<?php if($this->view->sucesso) {?>
+	<div class="alert alert-success text-center alert-dismissible fade show" role="alert">
+	 Usuário cadastrado com sucesso! <a href="/" class="alert-link">Clique aqui</a> para
+	 realizar o login.
+	 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    	<span aria-hidden="true">&times;</span>
+  	</button>
+	</div>
+<?php } ?>
+
+<div class="container" style="flex: 1;">
+	<div class="row mt-3">
+		<div class="col d-flex justify-content-center">
+			<img src="/img/logo.svg" class="img-fluid width-img">
+		</div>
+	</div>
+
+	<div class="row d-flex justify-content-center mt-3">
+		<div class="col-md-6">
+			<div class="card">
+
+		  		<div class="card-header bg-dark">
+		    		<h3 class="text-center titulo">CADASTRO</h3>
+		  		</div>
+
+		  		<div class="card-body">
+		    
+			    	<form method="post" action="/registrar">
+			    		<input class="form-control mb-3" type="text" name="nome" placeholder="NOME">
+						<input class="form-control mb-3" type="text" name="email" placeholder="EMAIL">
+						<input class="form-control mb-3" type="password" name="senha" placeholder="SENHA">
+							
+						<div class="d-flex justify-content-center">
+							<button type="submit" class="btn btn-costum btn-blue">Registrar</button>
+							<a href="/" class="btn btn-yellow ml-auto">Voltar</a>
+						</div>
+					</form>	
+
+					<?php if($this->view->erroCadastro == 1) {?>
+						<div class="text text-danger mt-3">*Email já cadastrado!</div>
+					<?php  } ?>
+
+					<?php if($this->view->erroCadastro == 2) {?>
+						<div class="text text-danger mt-3">*Preencha todos os campos!</div>
+					<?php  } ?>
+	
+		  		</div>
+
+			</div>
+		</div>
+	</div>
+
+
+</div>
